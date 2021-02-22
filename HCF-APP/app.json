@@ -27,6 +27,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "facebookScheme": "fb2757986461131691",
+    "facebookAppId": "2757986461131691",
+    "facebookDisplayName": "HillCity Mentorship"
   }
 }

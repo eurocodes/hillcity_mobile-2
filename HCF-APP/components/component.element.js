@@ -46,7 +46,7 @@ margin-top: 5px;
 margin-bottom: 10px;
 width: 100%;
 height:  ${props => props.height};
-border-color: #ccc;
+border-color: ${props => props.border};
 border-radius: 3px;
 border-width: 1px;
 flex-direction: row;

@@ -6,7 +6,7 @@ import { IconStyle, InputContainer, SecureTextIcon, TextInput } from './componen
 
 const { width, height } = Dimensions.get('window');
 
-const FormInput = ({ labelValue, placeholderText, iconType, display, hideSecure, showSecure, ...rest }) => {
+const FormInput = ({ labelValue, placeholderText, iconType, display, hideSecure, showSecure, danger, ...rest }) => {
 
     const [show, setShow] = useState(false);
 
@@ -15,7 +15,7 @@ const FormInput = ({ labelValue, placeholderText, iconType, display, hideSecure,
     }
 
     return (
-        <InputContainer height={`${height / 15}px`}>
+        <InputContainer border={danger} height={`${height / 15}px`}>
             <IconStyle>
                 <AntDesign name={iconType} size={25} color="#666" />
             </IconStyle>

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, Alert } from "react-native";
 import { StatusBar } from 'expo-status-bar';
 import FormInput from "../components/FormInput";
 import FormButton from "../components/FormButton";
 import SocialButton from "../components/SocialButton";
-
 import * as Google from "expo-google-app-auth";
-import { ANDROID_CLIENT_ID, IOS_CLIENT_ID } from "../ApiKeys";
+import * as Facebook from 'expo-facebook';
+import { ANDROID_CLIENT_ID, FACEBOOK_APP_ID, IOS_CLIENT_ID } from "../ApiKeys";
 import { SafeAreaView, Text, Image, ForgotPasswordText, SocialText } from "../styles/login.elements";
 
 
@@ -19,6 +19,7 @@ export default function LoginScreen({ navigation }) {
         isValidEmail: true,
         isValidPassword: true,
     });
+
 
     const emailInputChange = (val) => {
         if (/^[\S]+\.?[\d]?@{1}[\w]+\.\w{2,}$/gi.test(val)) {
@@ -80,6 +81,33 @@ export default function LoginScreen({ navigation }) {
         }
     };
 
+    // Facebook login
+    async function signinWithFacebook() {
+        try {
+            await Facebook.initializeAsync({
+                appId: FACEBOOK_APP_ID,
+            });
+            const {
+                type,
+                token,
+                expirationDate,
+                permissions,
+                declinedPermissions,
+            } = await Facebook.logInWithReadPermissionsAsync({
+                permissions: ['public_profile'],
+            });
+            if (type === 'success') {
+                // Get the user's name using Facebook's Graph API
+                const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+                Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
+            } else {
+                // type === 'cancel'
+            }
+        } catch ({ message }) {
+            alert(`Facebook Login Error: ${message}`);
+        }
+    }
+
     const handleValidEmail = (val) => {
         if (/^[\S]+\.?[\d]?@{1}[\w]+\.\w{2,}$/gi.test(val)) {
             setInput({
@@ -108,11 +136,16 @@ export default function LoginScreen({ navigation }) {
         }
     };
 
+    const handleEmailSignin = () => {
+        handleValidEmail(input.email);
+        handleValidPassword(input.password);
+    }
+
 
 
     return (
         <SafeAreaView>
-            <StatusBar backgroundColor='#2e64e5' style='light' />
+            <StatusBar style='auto' />
             <Image
                 imageStyle={{ resizeMode: 'cover' }}
                 source={require("../assets/logo.png")}
@@ -129,6 +162,7 @@ export default function LoginScreen({ navigation }) {
                 keyboardType="email-address"
                 autoCapitalize="none"
                 display="none"
+                danger={input.isValidEmail ? "#ccc" : "#ff0000"}
                 autoCorrect={false}
             />
 
@@ -141,6 +175,7 @@ export default function LoginScreen({ navigation }) {
                 hideSecure="eye-off-outline"
                 showSecure="eye-outline"
                 display="flex"
+                danger={input.isValidPassword ? "#ccc" : "#ff0000"}
             />
 
             <View style={{ width: "100%", alignItems: "flex-end" }}>
@@ -153,7 +188,7 @@ export default function LoginScreen({ navigation }) {
 
             <FormButton
                 buttonTitle="Sign In with Email"
-                onPress={() => { }}
+                onPress={handleEmailSignin}
             />
             <SocialText>Or</SocialText>
 
@@ -162,7 +197,7 @@ export default function LoginScreen({ navigation }) {
                 btnType="facebook"
                 color="#4867aa"
                 backgroundColor="#e6eaf4"
-                onPress={() => { }}
+                onPress={signinWithFacebook}
             />
 
             <SocialButton
