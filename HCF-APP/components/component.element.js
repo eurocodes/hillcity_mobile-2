@@ -8,7 +8,7 @@ background-color: #2e64e5;
 padding: 10px;
 align-items: center;
 justify-content: center;
-border-radius: 3px;
+border-radius: 15px;
 `;
 
 export const SocialButtonTouchable = styled.TouchableOpacity`
@@ -20,7 +20,7 @@ background-color: ${props => props.bgColor};
 padding: 10px;
 align-items: center;
 justify-content: center;
-border-radius: 3px;
+border-radius: 15px;
 `;
 
 export const ButtonText = styled.Text`
@@ -47,7 +47,7 @@ margin-bottom: 10px;
 width: 100%;
 height:  ${props => props.height};
 border-color: ${props => props.border};
-border-radius: 3px;
+border-radius: 15px;
 border-width: 1px;
 flex-direction: row;
 align-items: center;
@@ -70,8 +70,6 @@ padding: 10px;
 height: 100%;
 justify-content: center;
 align-items: center;
-border-right-color: #ccc;
-border-right-width: 1px;
 width: 50px;
 `;
 

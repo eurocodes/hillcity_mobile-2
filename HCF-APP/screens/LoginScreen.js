@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, TouchableOpacity, Alert } from "react-native";
 import { StatusBar } from 'expo-status-bar';
 import FormInput from "../components/FormInput";
 import FormButton from "../components/FormButton";
 import SocialButton from "../components/SocialButton";
-import * as Google from "expo-google-app-auth";
-import * as Facebook from 'expo-facebook';
-import { ANDROID_CLIENT_ID, FACEBOOK_APP_ID, IOS_CLIENT_ID } from "../ApiKeys";
 import { SafeAreaView, Text, Image, ForgotPasswordText, SocialText } from "../styles/login.elements";
+import { signinWithFacebook, signInWithGoogle } from "../helpers/socialLoginApi";
+import { UserContext } from "../helpers/userContext";
 
 
 export default function LoginScreen({ navigation }) {
+
+    const { setUserData } = useContext(UserContext);
 
     const [input, setInput] = useState({
         email: '',
@@ -27,6 +28,7 @@ export default function LoginScreen({ navigation }) {
                 ...input,
                 email: val,
                 check_textInputChange: true,
+                isValidEmail: true,
             })
         } else {
             setInput({
@@ -54,71 +56,19 @@ export default function LoginScreen({ navigation }) {
         }
     };
 
-    const signInWithGoogle = async () => {
-        try {
-            // First- obtain access token from Expo's Google API
-            const { type, accessToken, user } = await Google.logInAsync({
-                iosClientId: IOS_CLIENT_ID,
-                androidClientId: ANDROID_CLIENT_ID,
-                // iosStandaloneAppClientId: `<YOUR_IOS_CLIENT_ID>`,
-                // androidStandaloneAppClientId: `<YOUR_ANDROID_CLIENT_ID>`,
-                scopes: ['profile', 'email'],
-            });
-
-            if (type === 'success') {
-                console.log(user)
-                // return result.accessToken;
-
-                navigation.navigate("Home Screen", {
-                    username: user.name
-                }); //after Google login redirect to Profile
-            } else {
-                return { cancelled: true };
-            }
-        } catch (e) {
-            console.log('LoginScreen.js.js 30 | Error with login', e);
-            return { error: true };
-        }
-    };
-
-    // Facebook login
-    async function signinWithFacebook() {
-        try {
-            await Facebook.initializeAsync({
-                appId: FACEBOOK_APP_ID,
-            });
-            const {
-                type,
-                token,
-                expirationDate,
-                permissions,
-                declinedPermissions,
-            } = await Facebook.logInWithReadPermissionsAsync({
-                permissions: ['public_profile'],
-            });
-            if (type === 'success') {
-                // Get the user's name using Facebook's Graph API
-                const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-                Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
-            } else {
-                // type === 'cancel'
-            }
-        } catch ({ message }) {
-            alert(`Facebook Login Error: ${message}`);
-        }
-    }
-
     const handleValidEmail = (val) => {
         if (/^[\S]+\.?[\d]?@{1}[\w]+\.\w{2,}$/gi.test(val)) {
             setInput({
                 ...input,
                 isValidEmail: true,
             })
+            return input.isValidEmail;
         } else {
             setInput({
                 ...input,
                 isValidEmail: false,
             })
+            return input.isValidEmail;
         }
     };
 
@@ -128,19 +78,64 @@ export default function LoginScreen({ navigation }) {
                 ...input,
                 isValidPassword: true,
             })
+            return input.isValidPassword;
         } else {
             setInput({
                 ...input,
                 isValidPassword: false,
             })
+            return input.isValidPassword;
         }
     };
 
-    const handleEmailSignin = () => {
-        handleValidEmail(input.email);
-        handleValidPassword(input.password);
+    const handleEmailSignin = (email, password) => {
+        if (email === "") {
+            setInput({
+                isValidEmail: false,
+            })
+        }
+        if (password === "") {
+            setInput({
+                isValidPassword: false,
+            })
+        }
+        console.log(input.isValidEmail, input.isValidPassword)
+        if (input.isValidEmail && input.isValidPassword) {
+            // do something good
+            Alert.alert("Accepted Inputs", email + ", " + password)
+        } else if (!input.isValidEmail && !input.isValidPassword) {
+            Alert.alert("Invalid Fields", "Please review email and password fields")
+        } else if (!input.isValidPassword) {
+            Alert.alert("Password not accepted")
+        } else {
+            Alert.alert("Email invalid")
+        }
     }
 
+    const googleSignin = async () => {
+        const result = await signInWithGoogle();
+        if (result.accessToken) {
+            const { user, accessToken } = result;
+            setUserData({
+                name: user.name,
+                email: user.email,
+                token: accessToken,
+            })
+            navigation.navigate("Home Screen"); //after Google login redirect to Profile
+        }
+    }
+
+    const facebookSignin = async () => {
+        const result = await signinWithFacebook();
+        if (result.token) {
+            const { name, token } = result;
+            setUserData({
+                name: name,
+                token: token,
+            })
+            navigation.navigate("Home Screen"); //after Facebook login redirect to Profile
+        }
+    }
 
 
     return (
@@ -188,7 +183,7 @@ export default function LoginScreen({ navigation }) {
 
             <FormButton
                 buttonTitle="Sign In with Email"
-                onPress={handleEmailSignin}
+                onPress={() => handleEmailSignin(input.email, input.password)}
             />
             <SocialText>Or</SocialText>
 
@@ -197,7 +192,7 @@ export default function LoginScreen({ navigation }) {
                 btnType="facebook"
                 color="#4867aa"
                 backgroundColor="#e6eaf4"
-                onPress={signinWithFacebook}
+                onPress={facebookSignin}
             />
 
             <SocialButton
@@ -205,7 +200,7 @@ export default function LoginScreen({ navigation }) {
                 btnType="google"
                 color="#de4d41"
                 backgroundColor="#f5e7ea"
-                onPress={signInWithGoogle}
+                onPress={googleSignin}
             />
 
         </SafeAreaView>

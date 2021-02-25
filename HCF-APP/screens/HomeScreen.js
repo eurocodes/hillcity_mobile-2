@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider } from 'styled-components/native';
 import { Button, StyledText, StyledView } from '../styles/globalStyle';
 import * as Google from 'expo-google-app-auth';
 import { ANDROID_CLIENT_ID, IOS_CLIENT_ID } from '../ApiKeys';
+import { UserContext } from '../helpers/userContext';
 
 const config = {
     iosClientId: IOS_CLIENT_ID,
@@ -37,11 +38,11 @@ export default function HomeScreen({ route, navigation }) {
     //     bg: fg
     // })
 
-    const { username } = route.params;
+    const { userData } = useContext(UserContext)
 
     return (
         <StyledView>
-            <StyledText>Welcome {username}</StyledText>
+            <StyledText>Welcome {userData.name}</StyledText>
             <StyledText>Nothing to show yet. Check back later</StyledText>
             <Button onPress={googleSignout} >
                 <StyledText>Sign out</StyledText>
