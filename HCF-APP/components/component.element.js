@@ -4,7 +4,7 @@ export const FormButtonTouchable = styled.TouchableOpacity`
 margin-top: 10px;
 width: 100%;
 height: ${props => props.height};
-background-color: #2e64e5;
+background-color: #2a7ac3;
 padding: 10px;
 align-items: center;
 justify-content: center;

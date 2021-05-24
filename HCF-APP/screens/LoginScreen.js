@@ -7,6 +7,7 @@ import SocialButton from "../components/SocialButton";
 import { SafeAreaView, Text, Image, ForgotPasswordText, SocialText } from "../styles/login.elements";
 import { signinWithFacebook, signInWithGoogle } from "../helpers/socialLoginApi";
 import { UserContext } from "../helpers/userContext";
+import { loginUser } from "../helpers/loginApi";
 
 
 export default function LoginScreen({ navigation }) {
@@ -88,7 +89,7 @@ export default function LoginScreen({ navigation }) {
         }
     };
 
-    const handleEmailSignin = (email, password) => {
+    const handleEmailSignin = async (email, password) => {
         if (email === "") {
             setInput({
                 isValidEmail: false,
@@ -99,10 +100,19 @@ export default function LoginScreen({ navigation }) {
                 isValidPassword: false,
             })
         }
-        console.log(input.isValidEmail, input.isValidPassword)
         if (input.isValidEmail && input.isValidPassword) {
-            // do something good
-            Alert.alert("Accepted Inputs", email + ", " + password)
+            const result = await loginUser(email, password);
+            console.log(result);
+            if (result.id) {
+                const { name, email } = result;
+                setUserData({
+                    name: name,
+                    email: email,
+                    token: "asdfgertypoiuywerqwegf876349hjiu4",
+
+                })
+                navigation.navigate("Home Screen"); //after Google login redirect to Profile
+            }
         } else if (!input.isValidEmail && !input.isValidPassword) {
             Alert.alert("Invalid Fields", "Please review email and password fields")
         } else if (!input.isValidPassword) {

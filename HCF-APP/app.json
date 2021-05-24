@@ -30,6 +30,8 @@
     },
     "facebookScheme": "fb2757986461131691",
     "facebookAppId": "2757986461131691",
-    "facebookDisplayName": "HillCity Mentorship"
+    "facebookDisplayName": "HillCity Mentorship",
+    "description": "",
+    "githubUrl": "https://github.com/eurocodes/hillcity_mobile-2"
   }
 }
