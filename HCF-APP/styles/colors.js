@@ -1,0 +1,23 @@
+export const colors = {
+    themeColor: "#42a3ec",
+    white: "#fff",
+    textDarkPrimary: "#0D253C",
+    background: "#f4f6fc",
+    darkBackground: "#23272A",
+    greyish: "#a4a4a4",
+    tint: "#2a7ac3",
+    iconDark: "#1c1c1c",
+    iconWhite: "#fbfafb",
+    acceptOnWhite: "#129893",
+    modifyOnWhite: "#376AED",
+    acceptOnDark: "#f9f9f9",
+    primary_one: "#3b5998",
+    secondary_one: "#8b9dc3",
+    tertiary_one: "#dfe3ee",
+    tertiary_light_one: "#f7f7f7",
+    primary_two: "#011f4b",
+    secondary_two: "#03396c",
+    tertiary_two: "#005b96",
+    advance_two: "#6497b1",
+    advance_two_light: "#b3cde0"
+  };

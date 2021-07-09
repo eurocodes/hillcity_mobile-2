@@ -15,5 +15,8 @@ web-build/
 # ApiKeys
 ApiKeys.js
 
+# Local Responses
+Responses.json
+
 # Not in use
 cleanedOut.js

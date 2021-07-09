@@ -1,12 +1,5 @@
 import styled from "styled-components/native";
-
-export const colors = {
-  themeColor: "#42a3ec",
-  white: "#fff",
-  background: "#f4f6fc",
-  greyish: "#a4a4a4",
-  tint: "#2a7ac3",
-};
+import { colors } from "./colors";
 
 export const HomeContainer = styled.SafeAreaView`
   flex: 1;
@@ -18,7 +11,7 @@ export const HomeView = styled.View`
   `;
 
 export const HomeTopView = styled.View`
-  padding: 25px 16px;
+  padding: 40px 16px 20px 16px;
   flex-direction: row;
   justify-content: space-between;
   `;

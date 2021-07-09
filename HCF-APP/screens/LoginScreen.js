@@ -7,7 +7,7 @@ import SocialButton from "../components/SocialButton";
 import { SafeAreaView, Text, Image, ForgotPasswordText, SocialText } from "../styles/login.elements";
 import { signinWithFacebook, signInWithGoogle } from "../helpers/socialLoginApi";
 import { UserContext } from "../helpers/userContext";
-import { loginUser } from "../helpers/loginApi";
+import { loginUser } from "../httpRequests/loginApi";
 
 
 export default function LoginScreen({ navigation }) {
@@ -102,16 +102,15 @@ export default function LoginScreen({ navigation }) {
         }
         if (input.isValidEmail && input.isValidPassword) {
             const result = await loginUser(email, password);
-            console.log(result);
-            if (result.id) {
-                const { name, email } = result;
+            if (result.user_data) {
+                const { name, email } = result.user_data;
                 setUserData({
                     name: name,
                     email: email,
-                    token: "asdfgertypoiuywerqwegf876349hjiu4",
+                    //engagements: result.all_engagements,
 
                 })
-                navigation.navigate("Home Screen"); //after Google login redirect to Profile
+                navigation.navigate("Home Screen"); //after Google login redirect to Home
             }
         } else if (!input.isValidEmail && !input.isValidPassword) {
             Alert.alert("Invalid Fields", "Please review email and password fields")
@@ -138,9 +137,10 @@ export default function LoginScreen({ navigation }) {
     const facebookSignin = async () => {
         const result = await signinWithFacebook();
         if (result.token) {
-            const { name, token } = result;
+            const { name, token, email } = result;
             setUserData({
                 name: name,
+                email: email,
                 token: token,
             })
             navigation.navigate("Home Screen"); //after Facebook login redirect to Profile

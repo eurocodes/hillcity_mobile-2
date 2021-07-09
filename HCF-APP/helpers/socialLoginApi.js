@@ -15,8 +15,8 @@ export const signInWithGoogle = async () => {
         });
 
         if (type === 'success') {
-            console.log(user)
-            console.log(accessToken)
+            // console.log(user)
+            // console.log(accessToken)
             return { user, accessToken };
         } else {
             return { cancelled: true };
@@ -46,9 +46,9 @@ export const signinWithFacebook = async () => {
             // Get the user's name using Facebook's Graph API
             const response = await fetch(`https://graph.facebook.com/me?fields=id,name,email&access_token=${token}`);
             const result = (await response.json());
-            console.log("exp:", expirationDate)
-            console.log("permissions:", permissions)
-            console.log("declind:", declinedPermissions)
+            // console.log("exp:", expirationDate)
+            // console.log("permissions:", permissions)
+            // console.log("declind:", declinedPermissions)
             const { name, email, id } = result;
             return { "token": token, "name": name, "email": email }
             // Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);

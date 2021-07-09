@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import { UserContext } from '../helpers/userContext';
+import SingleEngagement from '../screens/SingleEngagement';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ const StackNavigator = () => {
         >
             <Stack.Screen name="Login Screen" component={LoginScreen} />
             <Stack.Screen name="Home Screen" component={HomeScreen} />
+            <Stack.Screen name="Single Engagement" component={SingleEngagement} />
         </Stack.Navigator>
     )
 }
