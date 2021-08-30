@@ -8,7 +8,7 @@ import { BodyHeaderText,  AppointText,
     HeaderView, MidContent, MidContentRight, 
     PageContainer, PageTopView, PageView, 
     TitleContainer, UnderLine, UserImage, UserInfo, 
-    UserInfoRight, UserName, AppointTextView, PageContentScroll } from '../styles/engagement.elememts';
+    UserInfoRight, UserName, AppointTextView, PageContentScroll, FloatingActionBtn, FloatingActionText } from '../styles/engagement.elememts';
 import { colors } from '../styles/colors';
 
 export default function SingleEngagement({route, navigation}) {
@@ -67,6 +67,9 @@ export default function SingleEngagement({route, navigation}) {
                 <AppointText>{data.reasonForEngagement}</AppointText>
             </AppointTextView>
             </PageContentScroll>
+            <FloatingActionBtn>
+                    <FloatingActionText>See More Goals</FloatingActionText>
+            </FloatingActionBtn>
         </PageContainer>
     )
 }

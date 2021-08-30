@@ -30,7 +30,7 @@ align-items: center;
 export const TitleContainer = styled.View`
 display: flex;
 flex-direction: row;
-padding: 15px 25px;
+padding: 0px 25px;
 align-items: center;
 justify-content: space-between;
 `;
@@ -57,6 +57,7 @@ justify-content: space-between;
 export const UnderLine = styled.View`
 border: 1px ${colors.primary_two} solid;
 align-self: center;
+margin: 15px 0;
 width: 90%;
 `;
 
@@ -104,7 +105,7 @@ export const DateTag = styled.Text`
 
 export const PageContentScroll = styled.ScrollView``;
 export const AppointTextView = styled.View`
-padding: 15px 15px;
+padding: 0px 15px;
 `;
 
 export const AppointText = styled.Text`
@@ -113,6 +114,87 @@ margin-left: 10px;
 line-height: 30px;
 color: ${colors.primary_two};
 `;
+
+export const FloatingActionBtn = styled.TouchableOpacity`
+position: absolute;
+width: 130px;
+height: 46px;
+align-items: center;
+justify-content: center;
+right: 20px; 
+bottom: 20px;
+background-color: ${colors.primary_two};
+border-radius: 30px;
+elevation: 8;
+`;
+
+export const FloatingActionText = styled.Text`
+font-size: 15px;
+color: white;
+`;
+
+export const GoalSelect = styled.View`
+background-color: ${colors.secondary_one};
+align-self: center;
+width: 90%;
+margin: 10px 0px;
+padding: 8px 0;
+border-radius: 5px;
+`;
+
+export const ViewContainer = styled.View`
+align-self: center;
+width: 90%;
+padding: 8px 0;
+border-radius: 5px;
+`;
+
+export const FlexViewWrapper = styled.View`
+display: flex;
+flex-direction: row;
+align-self: center;
+align-items: center;
+justify-content: space-between;
+margin: 8px 0px;
+width: 90%;
+`;
+export const ItemSelectWrapper = styled.TouchableOpacity`
+background-color: ${colors.secondary_one};
+align-self: center;
+width: 49%;
+padding: 12px 0;
+border-radius: 5px;
+`;
+
+export const DateTimeText = styled.Text`
+font-size: 20px;
+font-weight: bold;
+text-align: center;
+color: ${colors.advance_two_light};
+`;
+
+export const TextAreaContainer = styled.View`
+border-color: ${colors.tertiary_two};
+border-width: 1px;
+padding: 10px;
+height: 150px;
+border-radius: 5px;
+margin-bottom: 12px;
+`;
+
+export const TextInputContainer = styled.View`
+border-color: ${colors.tertiary_two};
+border-width: 1px;
+padding: 10px;
+height: 50px;
+border-radius: 5px;
+margin-bottom: 12px;
+`;
+
+export const TextInputArea = styled.TextInput`
+
+`;
+
 // color: ${props => props.color}
 /* UserInfo */
 

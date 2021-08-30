@@ -11,7 +11,7 @@ import {
     AppointmentView, AppointTextView, BodyContent,
     BodyHeaderText, HomeContainer, HomeLowerView, HomeTopView,
     HomeView, IconsContainer, LowerScrollView, SearchContainer,
-    SearchInner, TopText, AppointActions
+    SearchInner, TopText, AppointActions, FloatingActionBtn, AddIcon
 } from '../styles/home.element';
 import { Alert, TextInput } from 'react-native';
 import { getAllEngagement } from '../httpRequests/socialApi';
@@ -86,7 +86,7 @@ export default function HomeScreen({ route, navigation }) {
                 navigation.navigate("Login Screen"); // Direct back to Login
             }
         })()
-        //console.log("Data I need: ", userData.engagements[0].created_at);
+        console.log("Data I need: ", userData.engagements);
         //getEngagements();
         
     }, []);
@@ -162,12 +162,12 @@ export default function HomeScreen({ route, navigation }) {
             </HomeView>
             <BodyContent>
                 <BodyHeaderText>Recent Appointments</BodyHeaderText>
-                <Feather name="plus" size={25} style={{
+                {/* <Feather name="plus" size={25} style={{
                     color: "#4263ec",
                     backgroundColor: "#fff",
                     borderRadius: 20,
                     marginHorizontal: 8,
-                }} />
+                }} /> */}
             </BodyContent>
             <LowerScrollView>
                 {userData.engagements && userData.engagements.map(item => <Appointments
@@ -192,7 +192,13 @@ export default function HomeScreen({ route, navigation }) {
                     modeOfEng={item.mode_of_engagement}
                     reasonForEngagement={item.mentees_reason_for_engagement}
                 />)}
+                
             </LowerScrollView>
+            <FloatingActionBtn 
+                onPress={() => navigation.navigate("Create Engagement")}
+            >
+                    <AddIcon>+</AddIcon>
+            </FloatingActionBtn>
         </HomeContainer>
     )
 }

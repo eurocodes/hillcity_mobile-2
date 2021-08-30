@@ -87,6 +87,24 @@ export const AppointActions = styled.View`
 flex-direction: row;
 `;
 
+export const FloatingActionBtn = styled.TouchableOpacity`
+position: absolute;
+width: 56px;
+height: 56px;
+align-items: center;
+justify-content: center;
+right: 20px; 
+bottom: 20px;
+background-color: #03A9F4;
+border-radius: 30px;
+elevation: 8;
+`;
+
+export const AddIcon = styled.Text`
+font-size: 40px;
+color: white;
+`;
+
     // Define what props.theme will look like
     // const theme = {
     //     fg: "mediumseagreen",

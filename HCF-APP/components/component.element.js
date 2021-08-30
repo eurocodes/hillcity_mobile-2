@@ -8,7 +8,7 @@ background-color: #2a7ac3;
 padding: 10px;
 align-items: center;
 justify-content: center;
-border-radius: 15px;
+border-radius: 8px;
 `;
 
 export const SocialButtonTouchable = styled.TouchableOpacity`
