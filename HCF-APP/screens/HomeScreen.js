@@ -39,33 +39,6 @@ export default function HomeScreen({ route, navigation }) {
 
     const { userData, setUserData } = useContext(UserContext)
 
-    const appointments = [
-        {
-            title: "Loren Ipsum",
-            icon: "award",
-            theme: "#008b8b",
-            date: "Today, 8:30pm",
-        },
-        {
-            title: "Loren Ipsum",
-            icon: "book",
-            theme: "#37003c",
-            date: "Wed, 24 Mar, 4:50pm",
-        },
-        {
-            title: "Loren Ipsum",
-            icon: "send",
-            theme: "#fed137",
-            date: "Today, 8:30pm",
-        },
-        {
-            title: "Loren Ipsum",
-            icon: "calendar",
-            theme: "#008b8b",
-            date: "Saturday, 8:30pm",
-        },
-    ]
-
     useEffect(() => {
         (async function() {
             console.log(userData.email)
@@ -83,11 +56,11 @@ export default function HomeScreen({ route, navigation }) {
             } 
             } else {
                 Alert.alert("Error Occurred", `We could not find any user with email: ${userData.email} \nPlease try agian with a different email or contact support.`)
-                navigation.navigate("Login Screen"); // Direct back to Login
+                // navigation.navigate("Login Screen"); // Direct back to Login
+                setUserData(null);
             }
         })()
-        console.log("Data I need: ", userData.engagements);
-        //getEngagements();
+        console.log("Data I need: ", userData);
         
     }, []);
 
@@ -138,7 +111,8 @@ export default function HomeScreen({ route, navigation }) {
             <StatusBar style="light" />
             <HomeView>
                 <HomeTopView>
-                    <Feather name="menu" size={25} style={{ color: "#fff", }} />
+                    <Feather name="menu" size={25} style={{ color: "#fff", }} 
+                    onPress={() => navigation.openDrawer()}/>
                     <IconsContainer>
                         <Feather name="bell" size={25} style={{ color: "#fff", marginRight: 10 }} />
                         <Feather name="user" size={25} style={{ color: "#fff", }} />
@@ -146,7 +120,7 @@ export default function HomeScreen({ route, navigation }) {
                 </HomeTopView>
                 <HomeLowerView>
                     <TopText>Hello,{"\n"}{userData.name}</TopText>
-                    <SearchContainer>
+                    {/* <SearchContainer>
                         <Feather name="search" size={25} color="#fff" />
                         <SearchInner>
                             <TextInput
@@ -157,7 +131,7 @@ export default function HomeScreen({ route, navigation }) {
                                 style={{ width: "90%", marginLeft: 5, fontSize: 16 }}
                             />
                         </SearchInner>
-                    </SearchContainer>
+                    </SearchContainer> */}
                 </HomeLowerView>
             </HomeView>
             <BodyContent>
@@ -169,7 +143,8 @@ export default function HomeScreen({ route, navigation }) {
                     marginHorizontal: 8,
                 }} /> */}
             </BodyContent>
-            <LowerScrollView>
+            {userData.userdata &&
+                <LowerScrollView>
                 {userData.engagements && userData.engagements.map(item => <Appointments
                     key={item.engagement_id}
                     id={item.engagement_id}
@@ -193,12 +168,13 @@ export default function HomeScreen({ route, navigation }) {
                     reasonForEngagement={item.mentees_reason_for_engagement}
                 />)}
                 
-            </LowerScrollView>
-            <FloatingActionBtn 
-                onPress={() => navigation.navigate("Create Engagement")}
-            >
-                    <AddIcon>+</AddIcon>
-            </FloatingActionBtn>
+            </LowerScrollView>}
+            {userData.userdata && userData.userdata.membership_status == "mentee" &&
+                <FloatingActionBtn 
+                    onPress={() => navigation.navigate("Create Engagement")}>
+                        <AddIcon>+</AddIcon>
+                </FloatingActionBtn>
+            }
         </HomeContainer>
     )
 }

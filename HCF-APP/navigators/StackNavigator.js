@@ -6,6 +6,7 @@ import LoginScreen from '../screens/LoginScreen';
 import { UserContext } from '../helpers/userContext';
 import SingleEngagement from '../screens/SingleEngagement';
 import CreateEngagement from '../screens/CreateEngagement';
+import { SettingsScreen } from '../screens/SettingsScreen';
 
 const Stack = createStackNavigator();
 
@@ -14,15 +15,16 @@ const StackNavigator = () => {
 
     return (
         <Stack.Navigator
-            initialRouteName={userData === null ? "Login Screen" : "Home Screen"}
+            initialRouteName="Home Screen"
             screenOptions={{
                 headerShown: false,
             }}
         >
-            <Stack.Screen name="Login Screen" component={LoginScreen} />
+            {/* <Stack.Screen name="Login Screen" component={LoginScreen} /> */}
             <Stack.Screen name="Home Screen" component={HomeScreen} />
             <Stack.Screen name="Create Engagement" component={CreateEngagement} />
             <Stack.Screen name="Single Engagement" component={SingleEngagement} />
+            <Stack.Screen name="Settings Screen" component={SettingsScreen} />
         </Stack.Navigator>
     )
 }

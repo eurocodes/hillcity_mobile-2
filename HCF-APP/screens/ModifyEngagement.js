@@ -14,20 +14,17 @@ import { BodyHeaderText,  AppointText,
     UserInfoRight, UserName, AppointTextView, PageContentScroll, FloatingActionBtn, FloatingActionText, GoalSelect, ItemSelectWrapper, FlexViewWrapper, DateTimeText, ViewContainer, TextInputArea, TextAreaContainer, TextInputContainer } from '../styles/engagement.elememts';
 import { colors } from '../styles/colors';
 import FormButton from '../components/FormButton';
-import { submitEngagement } from '../httpRequests/engagementApi';
+import { modifyEngagement, submitEngagement } from '../httpRequests/engagementApi';
 import { Alert } from 'react-native';
 
-const CreateEngagement = ({navigation}) => {
+const ModifyEngagement = ({navigation}) => {
     const { userData } = useContext(UserContext);
-    const [selectedGoal, setSelectedGoal] = useState();
-    const [modeOfEngagement, setModeOfEngagement] = useState();
     const [proposedDateTime, setProposedDateTime] = useState({
         date: "Proposed Date",
         time: "Proposed Time",
     });
     // const [engagementSubject, setEngagementSubject] = useState("");
     const [engagementDetails, setEngagementDetails] = useState("");
-    const modeOfEng = ["Face to Face", "Technology Enabled"];
 
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
@@ -85,20 +82,15 @@ const CreateEngagement = ({navigation}) => {
     };
 
     const submit = async () => {
-        if(selectedGoal !== undefined && selectedGoal && 
-            modeOfEngagement !== undefined && modeOfEngagement
-            && proposedDateTime.date !== "Proposed Date"
+        if(proposedDateTime.date !== "Proposed Date"
             && proposedDateTime.time !== "Proposed Time"
             && engagementDetails !== "") {
-                await submitEngagement(
-                    selectedGoal, 
-                    modeOfEngagement, 
+                await modifyEngagement(
                     proposedDateTime.time, 
                     proposedDateTime.date, 
-                    // engagementSubject, 
                     engagementDetails,
                     userData.userdata.id,
-                    userData.userdata.MentorID
+                    // engId
                     );
                 // setEngagementSubject("");
                 setEngagementDetails("");
@@ -127,59 +119,14 @@ const CreateEngagement = ({navigation}) => {
                         <Feather name="user-check" size={30} style={{color: "#1c1c1c"}} />
                         <UserInfoRight>
                             <UserName>{userData.name}</UserName>
-                            <DateTag>Create new Engagement</DateTag>
+                            <DateTag>Reschedule Engagement</DateTag>
                         </UserInfoRight>
                     </UserInfo>
                     <MidContentRight>
-                        {/* <BtnAccept>
-                            <Feather name="check-circle" size={30} style={{color: colors.acceptOnWhite}} />
-                        </BtnAccept>
-                        <BtnModify>
-                        <Feather name="edit-2" size={30} style={{color: colors.modifyOnWhite}} />
-                        </BtnModify> */}
                     </MidContentRight>
                 </MidContent>
-                {/* <UnderLine /> */}
-                <BodyHeaderText>Create Engagement</BodyHeaderText>
+                <BodyHeaderText>Reschedule Engagement</BodyHeaderText>
             </HeaderView>
-
-            <GoalSelect>
-                <Picker
-                    dropdownIconColor="blue"
-                    style={{fontSize: 50, fontWeight: "900", color: "blue"}}
-                    itemStyle={{fontSize: 50, fontWeight: "900", color: "blue"}}
-                    selectedValue={selectedGoal}
-                    onValueChange={(itemValue, itemIndex) =>
-                        setSelectedGoal(itemValue)
-                    }>
-                        <Picker.Item label={"Select Goal"} value="" />
-                        {userData.goals && userData.goals.map((item) => 
-                            <Picker.Item 
-                            key={item.id}
-                            label={item.goal_details} value={item.id} />
-                        )}
-                        
-                </Picker>
-            </GoalSelect>
-
-            <GoalSelect>
-                <Picker
-                    dropdownIconColor="blue"
-                    style={{fontSize: 50, fontWeight: "900", color: "blue"}}
-                    itemStyle={{fontSize: 50, fontWeight: "900", color: "blue"}}
-                    selectedValue={modeOfEngagement}
-                    onValueChange={(itemValue, itemIndex) =>
-                        setModeOfEngagement(itemValue)
-                    }>
-                        <Picker.Item label={"Select Mode of Engagement"} value="" />
-                        {modeOfEng.map((item, index) => 
-                            <Picker.Item 
-                            key={index}
-                            label={item} value={item} />
-                        )}
-                        
-                </Picker>
-            </GoalSelect>
 
             <FlexViewWrapper>
                 <ItemSelectWrapper onPress={showDatepicker}>
@@ -191,17 +138,10 @@ const CreateEngagement = ({navigation}) => {
             </FlexViewWrapper>
 
             <ViewContainer>
-                {/* <TextInputContainer>
-                <TextInputArea
-                    onChangeText={val => setEngagementSubject(val)}
-                    placeholder="Enter Engagement Subject"
-                    value={engagementSubject}
-                     />
-                </TextInputContainer> */}
                 <TextAreaContainer>
                     <TextInputArea
                     onChangeText={val => setEngagementDetails(val)}
-                    placeholder="Reason for Engagement"
+                    placeholder="Reason for Rescheduling"
                     value={engagementDetails}
                      />
                 </TextAreaContainer>
@@ -241,4 +181,4 @@ const CreateEngagement = ({navigation}) => {
     )
 }
 
-export default CreateEngagement
+export default ModifyEngagement

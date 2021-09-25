@@ -19,5 +19,8 @@ export const colors = {
     secondary_two: "#03396c",
     tertiary_two: "#005b96",
     advance_two: "#6497b1",
-    advance_two_light: "#b3cde0"
+    advance_two_light: "#b3cde0",
+    settingsBackground: "#f7f7f7",
+    settingsText: "#2f2e2e",
+    settings_underline: "#b9b6b3",
   };

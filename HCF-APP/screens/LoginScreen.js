@@ -110,7 +110,7 @@ export default function LoginScreen({ navigation }) {
                     //engagements: result.all_engagements,
 
                 })
-                navigation.navigate("Home Screen"); //after Google login redirect to Home
+                // navigation.navigate("Home Screen"); //after Google login redirect to Home
             }
         } else if (!input.isValidEmail && !input.isValidPassword) {
             Alert.alert("Invalid Fields", "Please review email and password fields")
@@ -130,7 +130,7 @@ export default function LoginScreen({ navigation }) {
                 email: user.email,
                 token: accessToken,
             })
-            navigation.navigate("Home Screen"); //after Google login redirect to Profile
+            //navigation.navigate("Home Screen"); //after Google login redirect to Profile
         }
     }
 
@@ -143,7 +143,7 @@ export default function LoginScreen({ navigation }) {
                 email: email,
                 token: token,
             })
-            navigation.navigate("Home Screen"); //after Facebook login redirect to Profile
+            // navigation.navigate("Home Screen"); //after Facebook login redirect to Profile
         }
     }
 

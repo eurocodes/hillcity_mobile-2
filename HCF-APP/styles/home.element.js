@@ -26,7 +26,7 @@ padding: 16px;
 
 export const TopText = styled.Text`
 color: ${colors.white};
-font-size: 30px;
+font-size: 20px;
 `;
 
 export const SearchContainer = styled.View`
@@ -51,7 +51,7 @@ background-color: ${colors.background};
 `;
 
 export const BodyHeaderText = styled.Text`
-font-size: 24px;
+font-size: 20px;
 justify-content: space-between;
 align-items: center;
 `;

@@ -12,6 +12,9 @@ import { BodyHeaderText,  AppointText,
 import { colors } from '../styles/colors';
 
 export default function SingleEngagement({route, navigation}) {
+
+    const { userData } = useContext(UserContext);
+
     const { data } = route.params;
     console.log(data);
     return (
@@ -36,6 +39,7 @@ export default function SingleEngagement({route, navigation}) {
                             <DateTag> Created at {data.createdDate}</DateTag>
                         </UserInfoRight>
                     </UserInfo>
+                    {userData.userdata.membership_status !== "mentee" &&
                     <MidContentRight>
                         <BtnAccept>
                             <Feather name="check-circle" size={30} style={{color: colors.acceptOnWhite}} />
@@ -43,7 +47,7 @@ export default function SingleEngagement({route, navigation}) {
                         <BtnModify>
                         <Feather name="edit-2" size={30} style={{color: colors.modifyOnWhite}} />
                         </BtnModify>
-                    </MidContentRight>
+                    </MidContentRight>}
                 </MidContent>
             </HeaderView>
             <PageContentScroll>
