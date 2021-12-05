@@ -9,7 +9,7 @@ import { UserContext } from '../helpers/userContext';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import Constants from 'expo-constants'
 import * as Notifications from 'expo-notifications'
-import { firebaseapp } from '../helpers/firebaseConfig';
+// import { db } from '../helpers/firebaseConfig';
 
 const SettingTouch = ({label}) => {
     return(
@@ -55,10 +55,10 @@ const SettingSwitch = ({label}) => {
           }
           token = (await Notifications.getExpoPushTokenAsync()).data;
           console.log(token);
-        //   let uid = firebase.auth().currentUser.uid();
-        //   firebase.database().ref("users").child(uid).update({
-        //       expoPushToken: token,
-        //   })
+          let uid = firebase.auth().currentUser.uid();
+          firebase.database().ref("users").child(uid).update({
+              expoPushToken: token,
+          })
         } else {
           alert('Must use physical device for Push Notifications');
         }

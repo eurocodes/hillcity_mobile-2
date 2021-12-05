@@ -46,6 +46,7 @@ const CreateEngagement = ({navigation}) => {
 
     const onChangeDate = (event, selectedDate) => {
         const currentDate = selectedDate || date;
+        console.log(selectedGoal)
         // setShow(Platform.OS === 'ios');
         setShowDate(false);
         setProposedDateTime({

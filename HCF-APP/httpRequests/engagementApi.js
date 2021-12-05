@@ -11,7 +11,7 @@ export const submitEngagement = async (goal, mode, date, time, details, userid, 
             body: JSON.stringify({
                 hcf_number: userid,
                 hcf_number_mentor: mentorId,
-                goal_id: goal,
+                goal: goal,
                 method: mode,
                 date: date,
                 time: time,

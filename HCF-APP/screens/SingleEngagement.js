@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import Feather from '@expo/vector-icons/Feather';
 import { BodyHeaderText,  AppointText,
@@ -10,6 +10,7 @@ import { BodyHeaderText,  AppointText,
     TitleContainer, UnderLine, UserImage, UserInfo, 
     UserInfoRight, UserName, AppointTextView, PageContentScroll, FloatingActionBtn, FloatingActionText } from '../styles/engagement.elememts';
 import { colors } from '../styles/colors';
+import { UserContext } from '../helpers/userContext';
 
 export default function SingleEngagement({route, navigation}) {
 
